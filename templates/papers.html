@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Question Papers</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Question Papers</h1>
+        {% if session.get('is_admin') %}
+            <a href="/papers/add" class="btn btn-primary">Add New Paper</a>
+        {% endif %}
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Semester</th>
+                <th>Year</th>
+                <th>Subject</th>
+                <th>Link</th>
+                {% if session.get('is_admin') %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if not papers %}
+            <tr>
+                <td colspan="{% if session.get('is_admin') %}5{% else %}4{% endif %}" class="text-center">No question papers found.</td>
+            </tr>
+            {% endif %}
+
+            {% for paper in papers %}
+            <tr>
+                <td>{{ paper[1] }}</td>
+                <td>{{ paper[2] }}</td>
+                <td>{{ paper[3] }}</td>
+                <td><a href="{{ paper[4] }}" target="_blank" class="btn btn-sm btn-outline-primary">View Paper</a></td>
+                
+                {% if session.get('is_admin') %}
+                <td>
+                    <a href="/papers/edit/{{ paper[0] }}" class="btn btn-sm btn-warning me-1">Edit</a>
+                    <a href="/papers/delete/{{ paper[0] }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this paper?');">Delete</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
+
+<script 
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" 
+  crossorigin="anonymous">
+</script>
+</body>
+</html>

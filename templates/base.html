@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Student Academic Archive{% endblock %}</title>
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter for main content -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Devanagari font for the loader text -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Apply the Inter font family to the entire page */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Apply the Devanagari font for the loader */
+        .devanagari {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            /* Add a subtle shadow to make text pop against the background */
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animated gradient background for the main content */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #1a202c, #2d3748, #4a5568, #2d3748);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="gradient-bg text-gray-200">
+
+    <!-- ===== Loader with Full-Screen Background Image ===== -->
+    <div id="loader" 
+         class="fixed inset-0 z-50 flex items-center justify-center bg-cover bg-center transition-opacity duration-500" 
+         style="background-image: url('{{ url_for('static', filename='Jai_shree_ram.jpeg') }}');">
+        
+        <!-- Dark overlay for text readability -->
+        <div class="absolute inset-0 bg-black/60"></div>
+        
+        <!-- Centered Content (Mantra and Spinner) -->
+        <div class="relative text-center">
+            <!-- Loading Mantra -->
+            <h1 class="devanagari text-3xl md:text-4xl font-bold text-yellow-300 animate-pulse px-4">
+                ॐ नमो भगवते वासुदेवाय नमः
+            </h1>
+            
+            <!-- Spinner -->
+            <div class="mt-8 flex justify-center">
+                <svg class="w-8 h-8 text-yellow-400 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- ===== End Loader ===== -->
+
+    <!-- Page content will be injected here by child templates -->
+    <div id="page-content" class="min-h-screen opacity-0 transition-opacity duration-300">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Loader hide script (functionality is preserved) -->
+    <script>
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('loader');
+            const pageContent = document.getElementById('page-content');
+            const minVisibleMs = 500; 
+
+            setTimeout(() => {
+                loader.classList.add('opacity-0');
+                pageContent.classList.remove('opacity-0');
+                document.body.style.overflow = '';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, minVisibleMs);
+        });
+    </script>
+</body>
+</html>

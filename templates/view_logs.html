@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Logs - Admin</title>
+
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Apply the Inter font family */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Animated gradient background */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #1a202c, #2d3748, #4a5568, #2d3748);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white">
+
+    <div class="flex flex-col min-h-screen">
+        <!-- Navigation Bar -->
+        <nav class="p-4 md:p-6 bg-gray-800/30 border-b border-gray-700/50">
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-xl md:text-2xl font-bold tracking-tight">
+                    Activity Logs
+                </h1>
+                <a href="/" class="px-4 py-2 text-sm font-medium border border-gray-500 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors">
+                    Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-grow p-4 md:p-8">
+            <div class="container mx-auto">
+                <div class="bg-gray-800/50 border border-gray-700/60 rounded-xl shadow-lg overflow-hidden">
+                    <table class="min-w-full text-left">
+                        <thead class="bg-gray-900/70">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-300 uppercase tracking-wider">User Email</th>
+                                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-300 uppercase tracking-wider">Action</th>
+                                <th scope="col" class="px-6 py-3 text-xs font-medium text-gray-300 uppercase tracking-wider">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700">
+                            {% for log in logs %}
+                            <tr class="hover:bg-gray-700/50 transition-colors">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-200">{{ log[0] }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{{ log[1] }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">{{ log[2] }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center py-8 text-gray-400">
+                                    No activity logs found.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="text-center p-4 text-sm text-gray-500">
+            &copy; 2025 Student Academic Archive. All Rights Reserved.
+        </footer>
+    </div>
+
+</body>
+</html>
