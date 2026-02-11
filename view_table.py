@@ -1,15 +1,14 @@
 import sqlite3
 
-# Connect to the database
 conn = sqlite3.connect("database.db")
 c = conn.cursor()
 
-# Fetch all uploaded materials
-c.execute("SELECT * FROM materials")
-rows = c.fetchall()
+# Show all tables
+c.execute("SELECT name FROM sqlite_master WHERE type='table';")
+print("Tables:", c.fetchall())
 
-# Display each row
-for row in rows:
-    print(row)
+# Example: Show all users
+c.execute("SELECT * FROM users;")
+print("Users:", c.fetchall())
 
 conn.close()
