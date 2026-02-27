@@ -156,7 +156,11 @@ Track login and system actions.
 
 ## 👨‍💻 Author
 
-**Nayan Dewri**
+**Nayan Nirban Dewri**
+**Nilotpal Das**
+**Tinku Chauhan**
+**Srijanabh Bhardwaj**
+
 Student Developer | Assam, India
 
 ---
